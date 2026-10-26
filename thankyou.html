@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html lang="hi">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+
+
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      min-height: 100vh;
+      font-family:
+        "Noto Sans Devanagari",
+        "Nirmala UI",
+        Arial,
+        sans-serif;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      background:
+        radial-gradient(circle at 15% 15%,
+          rgba(245, 158, 11, 0.18),
+          transparent 30%),
+        radial-gradient(circle at 85% 85%,
+          rgba(16, 185, 129, 0.16),
+          transparent 32%),
+        linear-gradient(135deg,
+          #fffdf7 0%,
+          #f8fafc 50%,
+          #f0fdf4 100%);
+
+      color: #172033;
+      overflow: hidden;
+    }
+
+    /* Decorative background */
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+
+      background-image:
+        radial-gradient(rgba(16, 185, 129, 0.13) 1px,
+          transparent 1px);
+
+      background-size: 28px 28px;
+      opacity: 0.45;
+    }
+
+    .circle {
+      position: fixed;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .circle-one {
+      width: 320px;
+      height: 320px;
+      top: -160px;
+      left: -130px;
+
+      border: 1px solid rgba(245, 158, 11, 0.20);
+    }
+
+    .circle-two {
+      width: 380px;
+      height: 380px;
+      right: -190px;
+      bottom: -190px;
+
+      border: 1px solid rgba(16, 185, 129, 0.20);
+    }
+
+    /* Main Card */
+    .thank-you-card {
+      position: relative;
+      z-index: 2;
+
+      width: calc(100% - 32px);
+      max-width: 700px;
+
+      padding: 55px 45px;
+
+      text-align: center;
+
+      background: rgba(255, 255, 255, 0.90);
+
+      border: 1px solid rgba(16, 185, 129, 0.13);
+      border-radius: 26px;
+
+      box-shadow:
+        0 25px 70px rgba(15, 23, 42, 0.10),
+        0 5px 20px rgba(16, 185, 129, 0.06);
+
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+    }
+
+    /* Top Accent */
+    .accent {
+      width: 65px;
+      height: 4px;
+
+      margin: 0 auto 28px;
+
+      border-radius: 10px;
+
+      background: linear-gradient(90deg,
+          #f59e0b,
+          #10b981);
+    }
+
+    /* Success Icon */
+    .success-icon {
+      width: 72px;
+      height: 72px;
+
+      margin: 0 auto 24px;
+
+      display: flex;
+      align-items: center;
+      justify-content: center;
+
+      border-radius: 50%;
+
+      background: linear-gradient(135deg,
+          #10b981,
+          #059669);
+
+      box-shadow:
+        0 10px 30px rgba(16, 185, 129, 0.25),
+        0 0 0 8px rgba(16, 185, 129, 0.07);
+    }
+
+    .success-icon svg {
+      width: 36px;
+      height: 36px;
+
+      fill: none;
+      stroke: white;
+      stroke-width: 3;
+      stroke-linecap: round;
+      stroke-linejoin: round;
+    }
+
+    /* Heading */
+    h1 {
+      font-size: clamp(34px, 5vw, 52px);
+      line-height: 1.25;
+
+      font-weight: 800;
+
+      color: #172033;
+
+      margin-bottom: 18px;
+    }
+
+    h1 span {
+      color: #059669;
+    }
+
+    /* Main Text */
+    .intro {
+      font-size: 19px;
+      line-height: 1.8;
+
+      color: #566274;
+
+      margin-bottom: 28px;
+    }
+
+    .intro strong {
+      color: #172033;
+      font-weight: 700;
+    }
+
+    /* WhatsApp Section */
+    .community {
+      padding: 24px 20px;
+
+      margin-bottom: 25px;
+
+      border-radius: 18px;
+
+      background:
+        linear-gradient(135deg,
+          rgba(16, 185, 129, 0.07),
+          rgba(245, 158, 11, 0.06));
+
+      border: 1px solid rgba(16, 185, 129, 0.13);
+    }
+
+    .community h2 {
+      font-size: 23px;
+      line-height: 1.4;
+
+      color: #172033;
+
+      margin-bottom: 10px;
+    }
+
+    .community p {
+      font-size: 16px;
+      line-height: 1.7;
+
+      color: #667085;
+
+      max-width: 500px;
+      margin: 0 auto 20px;
+    }
+
+    .highlight {
+      color: #059669;
+      font-weight: 700;
+    }
+
+    /* WhatsApp Button */
+    .whatsapp-btn {
+      display: inline-flex;
+
+      align-items: center;
+      justify-content: center;
+
+      gap: 10px;
+
+      padding: 15px 28px;
+
+      border-radius: 10px;
+
+      background: #25D366;
+      color: #ffffff;
+
+      text-decoration: none;
+
+      font-size: 16px;
+      font-weight: 700;
+
+      box-shadow:
+        0 10px 25px rgba(37, 211, 102, 0.22);
+
+      transition:
+        transform 0.25s ease,
+        box-shadow 0.25s ease;
+    }
+
+    .whatsapp-btn:hover {
+      transform: translateY(-3px);
+
+      box-shadow:
+        0 15px 32px rgba(37, 211, 102, 0.32);
+    }
+
+    .whatsapp-btn svg {
+      width: 22px;
+      height: 22px;
+
+      fill: currentColor;
+    }
+
+    /* Bottom Message */
+    .closing {
+      font-size: 16px;
+      line-height: 1.7;
+
+      font-weight: 600;
+
+      color: #667085;
+    }
+
+    .closing span {
+      color: #059669;
+    }
+
+    /* Footer */
+    .footer {
+      margin-top: 30px;
+
+      font-size: 12px;
+
+      color: #98a2b3;
+    }
+
+    /* Mobile */
+    @media (max-width: 600px) {
+
+      body {
+        overflow-y: auto;
+      }
+
+      .thank-you-card {
+        width: calc(100% - 24px);
+
+        padding: 38px 20px;
+
+        border-radius: 20px;
+      }
+
+      .success-icon {
+        width: 62px;
+        height: 62px;
+      }
+
+      .success-icon svg {
+        width: 31px;
+        height: 31px;
+      }
+
+      .intro {
+        font-size: 17px;
+      }
+
+      .community h2 {
+        font-size: 20px;
+      }
+
+      .community p {
+        font-size: 15px;
+      }
+
+      .whatsapp-btn {
+        width: 100%;
+        max-width: 300px;
+      }
+
+      .closing {
+        font-size: 15px;
+      }
+    }
+  </style>
+  <title>धन्यवाद | Bima Acharya K. M. Sharma</title>
+  <meta name="description" content="Bima Acharya K. M. Sharma
+            से जुड़ने के लिए धन्यवाद!">
+  <meta property="og:title" content="धन्यवाद | Bima Acharya K. M. Sharma">
+  <meta property="og:description" content="Bima Acharya K. M. Sharma
+            से जुड़ने के लिए धन्यवाद!">
+</head>
+
+<body>
+
+  <!-- Background Decorations -->
+  <div class="circle circle-one"></div>
+  <div class="circle circle-two"></div>
+
+
+  <!-- Thank You Card -->
+  <main class="thank-you-card">
+
+    <div class="accent"></div>
+
+
+    <!-- Success -->
+    <div class="success-icon">
+
+      <svg viewBox="0 0 24 24">
+        <polyline points="20 6 9 17 4 12"></polyline>
+      </svg>
+
+    </div>
+
+
+    <!-- Heading -->
+    <h1>
+      धन्यवाद! <span>आपका स्वागत है</span>
+    </h1>
+
+
+    <!-- Intro -->
+    <p class="intro">
+      <strong>Bima Acharya K. M. Sharma</strong>
+      से जुड़ने के लिए धन्यवाद!
+    </p>
+
+
+    <!-- WhatsApp Community -->
+    <section class="community">
+
+      <h2>
+        💬 WhatsApp Community से जुड़ें
+      </h2>
+
+      <p>
+        पाएं
+        <span class="highlight">
+                    उपयोगी टिप्स, मार्गदर्शन, महत्वपूर्ण अपडेट और Growth Insights
+                </span>।
+      </p>
+
+
+      <a href="https://chat.whatsapp.com/HTUdfXTRsIF5JB09I3uSQN" target="_blank" rel="noopener noreferrer"
+        class="whatsapp-btn">
+
+        <svg viewBox="0 0 24 24">
+          <path d="M20.5 3.5A11.8 11.8 0 0 0 12.1 0
+                    C5.5 0 .1 5.3.1 11.9c0 2.1.5 4.1 1.6 5.9L0 24
+                    l6.4-1.7c1.7.9 3.6 1.4 5.6 1.4h.1
+                    c6.5 0 11.8-5.3 11.8-11.9
+                    0-3.1-1.2-6.1-3.4-8.3ZM12.1 21.7
+                    c-1.7 0-3.4-.5-4.8-1.3l-.3-.2-3.8 1
+                    1-3.7-.2-.4c-1-1.5-1.5-3.3-1.5-5.1
+                    0-5.4 4.4-9.8 9.8-9.8
+                    2.6 0 5.1 1 6.9 2.9
+                    1.8 1.9 2.8 4.3 2.8 6.9
+                    0 5.4-4.4 9.8-9.9 9.8Z"></path>
+
+          <path d="M17.5 14.6c-.3-.2-1.8-.9-2.1-1
+                    -.3-.1-.5-.2-.7.2-.2.3-.8 1-.9 1.2
+                    -.2.2-.3.2-.6.1-1.5-.7-2.5-1.3
+                    -3.5-2.9-.3-.5.3-.5.8-1.6
+                    .1-.2 0-.4 0-.5-.1-.1-.7-1.7-1-2.3
+                    -.3-.6-.5-.5-.7-.5h-.6c-.2 0-.5.1-.8.4
+                    -.3.3-1.1 1.1-1.1 2.7
+                    0 1.6 1.1 3.1 1.3 3.3
+                    .2.2 2.2 3.4 5.3 4.7
+                    .7.3 1.2.5 1.6.6
+                    .7.2 1.3.2 1.8.1
+                    .6-.1 1.8-.7 2.1-1.4
+                    .3-.7.3-1.3.2-1.4
+                    -.1-.1-.3-.2-.6-.3Z"></path>
+        </svg>
+
+        अभी WhatsApp Community Join करें
+
+      </a>
+
+    </section>
+
+
+    <!-- Closing -->
+    <p class="closing">
+      जुड़े रहें • सीखते रहें • आगे बढ़ते रहें! 🌟
+    </p>
+
+
+    <!-- Footer -->
+    <div class="footer">
+      © 2026 Bima Acharya K. M. Sharma. All Rights Reserved.
+    </div>
+
+  </main>
+
+
+  <script data-reveal-fix="">
+    (function(){
+  var SEL = '.reveal,[data-sa-reveal],[data-reveal],[data-animate],[data-aos],[data-scroll],.scroll-reveal,.fade-in-section,.animate-on-scroll,.reveal-on-scroll';
+  var CLASSES = ['visible','sa-visible','aos-animate','in-view','is-visible','active','show','animated'];
+  function revealAll(){
+    try {
+      document.querySelectorAll(SEL).forEach(function(el){
+        for (var i=0;i<CLASSES.length;i++) el.classList.add(CLASSES[i]);
+      });
+    } catch(e){}
+  }
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', revealAll);
+  else revealAll();
+  setTimeout(revealAll, 150);
+  setTimeout(revealAll, 500);
+})();
+  </script>
+
+
+
+
+
+</body>
+
+</html>
